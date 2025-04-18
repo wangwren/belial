@@ -32,4 +32,18 @@ public class MainGenerator {
         model.setLoop(Boolean.TRUE);
         DynamicGenerator.doGenerator(inputPath, outputPath, model);
     }
+
+    /**
+     * 动静结合生成文件
+     */
+    public static void doGenerator(String inputPath, String outputPath, Object model) throws IOException, TemplateException {
+
+        StaticGenerator.copyFilesByHutool(inputPath, outputPath);
+
+        String inputPathFtl= "/Users/weiren/idea_work/belial/belial-gen-basic/src/main/resources/templates/MainTemplate.java.ftl";
+        // 这个路径就是上面静态文件生成后的路径，通过动态文件生成将其替换
+        outputPath = outputPath + File.separator + "acm-template/src/com/core/MainTemplate.java";
+
+        DynamicGenerator.doGenerator(inputPathFtl, outputPath, model);
+    }
 }
