@@ -32,7 +32,27 @@ public class MainGenerator {
         String basePackage = metaObject.getBasePackage().replace(".", File.separator);
         outputPath = outputPath + File.separator + basePackage + File.separator +  "maker/model/DataModel.java";
 
+        // 生成DataModel.java
+        DynamicFileGenerator.doGenerator(inputPath, outputPath, metaObject);
 
+        // 生成cli相关文件
+        inputPath = inputResourcePath + File.separator + "templates/java/cli/CommandExecutor.java.ftl";
+        outputPath = projectPath + File.separator + "generate" + File.separator + metaObject.getName() + File.separator + basePackage + File.separator + "maker/cli/CommandExecutor.java";
+        DynamicFileGenerator.doGenerator(inputPath, outputPath, metaObject);
+
+        // 生成config相关文件
+        inputPath = inputResourcePath + File.separator + "templates/java/cli/command/ConfigCommand.java.ftl";
+        outputPath = projectPath + File.separator + "generate" + File.separator + metaObject.getName() + File.separator + basePackage + File.separator + "maker/cli/command/ConfigCommand.java";
+        DynamicFileGenerator.doGenerator(inputPath, outputPath, metaObject);
+
+        // 生成generate相关文件
+        inputPath = inputResourcePath + File.separator + "templates/java/cli/command/GenerateCommand.java.ftl";
+        outputPath = projectPath + File.separator + "generate" + File.separator + metaObject.getName() + File.separator + basePackage + File.separator + "maker/cli/command/GenerateCommand.java";
+        DynamicFileGenerator.doGenerator(inputPath, outputPath, metaObject);
+
+        // Main
+        inputPath = inputResourcePath + File.separator + "templates/java/Main.java.ftl";
+        outputPath = projectPath + File.separator + "generate" + File.separator + metaObject.getName() + File.separator + basePackage + File.separator + "Main.java";
         DynamicFileGenerator.doGenerator(inputPath, outputPath, metaObject);
     }
 }
